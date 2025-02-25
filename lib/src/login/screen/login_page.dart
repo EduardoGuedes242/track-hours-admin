@@ -1,140 +1,116 @@
 import 'package:flutter/material.dart';
 import 'package:panel_admin/src/common/Cores.dart';
+import 'package:panel_admin/src/login/api/auth/login.dart';
+import 'package:panel_admin/src/widgets/edit.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0XFF041643),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(color: Colors.amber),
-          Container(
-            height: 350,
-            width: 450,
-            margin: EdgeInsets.only(right: 100, top: 100),
-            padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: Colors.white,
-            ),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+      body:
+          !isLoading
+              ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  EditInput(title: 'Email', hintText: 'name@email.com'),
-                  EditInput(
-                    title: 'Password',
-                    hintText: 'Password',
-                    obscureText: true,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        'Don’t have an account?',
-                        style: TextStyle(
-                          color: PaletaCores.textoNegrito,
-                          fontFamily: 'Axiforma',
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      Text(
-                        ' Sign up',
-                        style: TextStyle(
-                          color: PaletaCores.textoNegrito,
-                          fontFamily: 'Axiforma',
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Spacer(),
-                      Container(
-                        height: 40,
-                        width: 126,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(7),
-                          color: PaletaCores.azulPrimairo,
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Login',
-                            style: TextStyle(
-                              color: PaletaCores.textoButao,
-                              fontFamily: 'Axiforma',
-                              fontWeight: FontWeight.w600,
-                            ),
+                  Container(color: Colors.amber),
+                  Container(
+                    height: 350,
+                    width: 450,
+                    margin: EdgeInsets.only(right: 100, top: 100),
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.white,
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          EditInput(
+                            title: 'Email',
+                            hintText: 'name@email.com',
+                            controller: emailController,
                           ),
-                        ),
+                          EditInput(
+                            title: 'Password',
+                            hintText: 'Password',
+                            obscureText: true,
+                            controller: passwordController,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                'Don’t have an account?',
+                                style: TextStyle(
+                                  color: PaletaCores.textoNegrito,
+                                  fontFamily: 'Axiforma',
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              Text(
+                                ' Sign up',
+                                style: TextStyle(
+                                  color: PaletaCores.textoNegrito,
+                                  fontFamily: 'Axiforma',
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Spacer(),
+                              GestureDetector(
+                                onTap: () async {
+                                  setState(() {
+                                    isLoading = true;
+                                  });
+
+                                  await fetchToken(
+                                    aEmail: emailController.text,
+                                    aPassword: passwordController.text,
+                                  );
+
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                },
+                                child: Container(
+                                  height: 40,
+                                  width: 126,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(7),
+                                    color: PaletaCores.azulPrimairo,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Login',
+                                      style: TextStyle(
+                                        color: PaletaCores.textoButao,
+                                        fontFamily: 'Axiforma',
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class EditInput extends StatelessWidget {
-  const EditInput({
-    super.key,
-    required this.title,
-    required this.hintText,
-    this.obscureText = false,
-  });
-  final String title;
-  final String hintText;
-  final bool obscureText;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 72,
-
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: PaletaCores.textoLabel,
-              fontFamily: 'Axiforma',
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          Spacer(),
-          TextField(
-            cursorColor: PaletaCores.azulPrimairo,
-            obscureText: obscureText,
-            decoration: InputDecoration(
-              isDense: false,
-
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5),
-                borderSide: BorderSide(color: PaletaCores.azulPrimairo),
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5),
-                borderSide: BorderSide(color: PaletaCores.textoBorder),
-              ),
-              hint: Text(
-                hintText,
-                style: TextStyle(
-                  color: PaletaCores.textoLabel,
-                  fontFamily: 'Axiforma',
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+              )
+              : Center(child: CircularProgressIndicator()),
     );
   }
 }
