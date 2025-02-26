@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:panel_admin/src/common/Cores.dart';
-import 'package:panel_admin/src/login/api/auth/login.dart';
+import 'package:panel_admin/src/common/global.dart';
 import 'package:panel_admin/src/widgets/edit.dart';
 
 class LoginPage extends StatefulWidget {
@@ -74,14 +75,19 @@ class _LoginPageState extends State<LoginPage> {
                                     isLoading = true;
                                   });
 
-                                  await fetchToken(
-                                    aEmail: emailController.text,
-                                    aPassword: passwordController.text,
-                                  );
+                                  // await fetchToken(
+                                  // aEmail: emailController.text,
+                                  // aPassword: passwordController.text,
+                                  //);
+                                  Duration(milliseconds: 300);
 
                                   setState(() {
                                     isLoading = false;
                                   });
+
+                                  if (token != '') {
+                                    context.go('/dashboard');
+                                  }
                                 },
                                 child: Container(
                                   height: 40,
