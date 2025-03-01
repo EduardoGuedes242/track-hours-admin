@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:panel_admin/src/home/dashboard/dashboard.dart';
+import 'package:panel_admin/src/home/employee/screen/list_employee.dart';
 import 'package:panel_admin/src/home/homepage.dart';
 import 'package:panel_admin/src/login/screen/login_page.dart';
 
@@ -16,15 +18,11 @@ class MyApp extends StatelessWidget {
       GoRoute(path: '/login', builder: (context, state) => const LoginPage()),
       GoRoute(
         path: '/dashboard',
-        builder:
-            (context, state) =>
-                Homepage(body: SizedBox(child: Text('DASHBOARD'))),
+        builder: (context, state) => Homepage(body: DashboardPage()),
       ),
       GoRoute(
         path: '/employee',
-        builder:
-            (context, state) =>
-                Homepage(body: SizedBox(child: Text('employee'))),
+        builder: (context, state) => Homepage(body: ListEmployeePage()),
       ),
       GoRoute(
         path: '/menager-hours',

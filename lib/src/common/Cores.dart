@@ -6,5 +6,6 @@ class PaletaCores {
   static final Color textoHint = Color(0XFFC8C8C8);
   static final Color textoBorder = Color(0XFFD7D7D7);
   static final Color textoButao = Color(0XFFFFFFFF);
+  static final Color textoPreto = Color(0XFF121212);
   static final Color azulPrimairo = Color(0XFF1352F1);
 }

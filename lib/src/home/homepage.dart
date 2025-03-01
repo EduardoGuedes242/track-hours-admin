@@ -5,23 +5,26 @@ import 'package:panel_admin/src/common/Cores.dart';
 
 class Homepage extends StatelessWidget {
   const Homepage({super.key, required this.body});
-  final SizedBox body;
+  final Widget body;
 
   @override
   Widget build(BuildContext context) {
-    final String currentRoute =
-        GoRouterState.of(context).uri.toString(); // Obtém a rota atual
-    //final String currentRoute = '/dashboard';
+    final String currentRoute = GoRouterState.of(context).uri.toString();
 
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 235, 236, 239),
       body: Row(
         children: [
           Container(
             height: MediaQuery.sizeOf(context).height,
             width: 240,
-            color: const Color(0XFFF5F6F8),
+            decoration: BoxDecoration(
+              color: const Color(0XFFFFFFFF),
+              borderRadius: BorderRadius.only(topRight: Radius.circular(30)),
+            ),
             child: Column(
               children: [
+                SizedBox(height: 100),
                 ItemMenuSidebar(
                   isSelected: currentRoute == '/dashboard',
                   title: 'DashBoard',
@@ -130,7 +133,7 @@ class _ItemMenuSidebarState extends State<ItemMenuSidebar>
                 color:
                     widget.isSelected
                         ? const Color(0XFFEAF2FF)
-                        : const Color(0XFFF5F6F8),
+                        : const Color(0XFFFFFFFF),
                 boxShadow:
                     widget.isSelected
                         ? [
