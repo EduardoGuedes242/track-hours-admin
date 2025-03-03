@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:panel_admin/src/home/dashboard/dashboard.dart';
+import 'package:panel_admin/src/home/employee/screen/form_employee.dart';
 import 'package:panel_admin/src/home/employee/screen/list_employee.dart';
 import 'package:panel_admin/src/home/homepage.dart';
 import 'package:panel_admin/src/login/screen/login_page.dart';
@@ -23,6 +24,10 @@ class MyApp extends StatelessWidget {
       GoRoute(
         path: '/employee',
         builder: (context, state) => Homepage(body: ListEmployeePage()),
+      ),
+      GoRoute(
+        path: '/employee-form',
+        builder: (context, state) => Homepage(body: FormEmployeePage()),
       ),
       GoRoute(
         path: '/menager-hours',

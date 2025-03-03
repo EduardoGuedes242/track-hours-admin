@@ -34,14 +34,14 @@ class _EditInputState extends State<EditInput> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 72,
-      width: double.infinity,
+      width: widget.width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             widget.title,
             style: TextStyle(
-              color: PaletaCores.textoLabel,
+              color: PaletaCores.textoNegrito,
               fontFamily: 'Axiforma',
               fontWeight: FontWeight.w600,
             ),
