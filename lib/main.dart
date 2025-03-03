@@ -4,6 +4,7 @@ import 'package:panel_admin/src/home/dashboard/dashboard.dart';
 import 'package:panel_admin/src/home/employee/screen/form_employee.dart';
 import 'package:panel_admin/src/home/employee/screen/list_employee.dart';
 import 'package:panel_admin/src/home/homepage.dart';
+import 'package:panel_admin/src/home/menager_hours/screen/menager_hours.dart';
 import 'package:panel_admin/src/login/screen/login_page.dart';
 
 void main() {
@@ -31,9 +32,7 @@ class MyApp extends StatelessWidget {
       ),
       GoRoute(
         path: '/menager-hours',
-        builder:
-            (context, state) =>
-                Homepage(body: SizedBox(child: Text('menager-hours'))),
+        builder: (context, state) => Homepage(body: MenagerHoursPage()),
       ),
     ],
   );

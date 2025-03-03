@@ -121,7 +121,7 @@ class _EditInputWithIconState extends State<EditInputWithIcon> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 72,
-      width: double.infinity,
+      width: widget.width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -144,6 +144,94 @@ class _EditInputWithIconState extends State<EditInputWithIcon> {
 
               suffixIcon: widget.suffixIcon,
 
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5),
+                borderSide: BorderSide(color: PaletaCores.azulPrimairo),
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5),
+                borderSide: BorderSide(color: PaletaCores.textoBorder),
+              ),
+              hint: Text(
+                widget.hintText,
+                style: TextStyle(
+                  color: PaletaCores.textoLabel,
+                  fontFamily: 'Axiforma',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class EditInputDate extends StatefulWidget {
+  const EditInputDate({
+    super.key,
+    required this.title,
+    required this.hintText,
+    required this.controller,
+    required this.suffixIcon,
+    this.width = double.infinity,
+  });
+  final String title;
+  final String hintText;
+  final TextEditingController controller;
+  final Widget suffixIcon;
+  final double width;
+
+  @override
+  State<EditInputDate> createState() => _EditInputDateState();
+}
+
+class _EditInputDateState extends State<EditInputDate> {
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+
+    if (pickedDate != null) {
+      setState(() {
+        widget.controller.text =
+            "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 72,
+      width: widget.width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.title,
+            style: TextStyle(
+              color: PaletaCores.textoLabel,
+              fontFamily: 'Axiforma',
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          SizedBox(height: 3),
+          TextField(
+            controller: widget.controller,
+            cursorColor: PaletaCores.azulPrimairo,
+            style: const TextStyle(fontFamily: 'Axiforma', color: Colors.black),
+            decoration: InputDecoration(
+              isDense: false,
+              suffixIcon: GestureDetector(
+                child: widget.suffixIcon,
+                onTap: () => _selectDate(context),
+              ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5),
                 borderSide: BorderSide(color: PaletaCores.azulPrimairo),
