@@ -22,7 +22,7 @@ Future<void> fetchToken({
   final response = await http.post(url, headers: headers, body: body);
 
   if (response.statusCode == 200) {
-    final token = response.body;
+    token = response.body;
     print('Token: $token');
   } else {
     print('Erro na requisição: ${response.statusCode}');

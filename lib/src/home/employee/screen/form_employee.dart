@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:panel_admin/src/common/Cores.dart';
+import 'package:panel_admin/src/home/employee/api/repository.dart';
 import 'package:panel_admin/src/login/screen/login_page.dart';
 import 'package:panel_admin/src/widgets/edit.dart';
 
 class FormEmployeePage extends StatefulWidget {
-  const FormEmployeePage({super.key});
+  final String? employeeId;
+  const FormEmployeePage({super.key, this.employeeId});
 
   @override
   State<FormEmployeePage> createState() => _FormEmployeePageState();
@@ -14,6 +16,8 @@ class FormEmployeePage extends StatefulWidget {
 class _FormEmployeePageState extends State<FormEmployeePage> {
   @override
   Widget build(BuildContext context) {
+    print(widget.employeeId);
+
     return Column(
       children: [
         Container(
@@ -50,7 +54,9 @@ class _FormEmployeePageState extends State<FormEmployeePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Dados do Funcionario',
+                widget.employeeId != null
+                    ? 'Editar Funcionario'
+                    : 'Novo Funcionario',
                 style: TextStyle(
                   color: PaletaCores.textoPreto,
                   fontFamily: 'Axiforma',
@@ -122,7 +128,22 @@ class _FormEmployeePageState extends State<FormEmployeePage> {
                         ),
                       ],
                     ),
-                    ButtonProprio(title: 'Salvar dados', onClick: () {}),
+                    ButtonProprio(
+                      title: 'Salvar dados',
+                      onClick: () {
+                        EmployeeRepository().createNewEmployee(
+                          id:
+                              widget.employeeId != null
+                                  ? int.parse(widget.employeeId!)
+                                  : null,
+                          name: 'Luana Guedes',
+                          document: '163.011.777-38',
+                          dateOfBirth: '1992-03-10',
+                          password: 'password',
+                          active: true,
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),

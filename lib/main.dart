@@ -28,7 +28,16 @@ class MyApp extends StatelessWidget {
       ),
       GoRoute(
         path: '/employee-form',
-        builder: (context, state) => Homepage(body: FormEmployeePage()),
+        builder: (context, state) {
+          return Homepage(body: FormEmployeePage(employeeId: null));
+        },
+      ),
+      GoRoute(
+        path: '/employee-form/:id',
+        builder: (context, state) {
+          final id = state.pathParameters['id'];
+          return Homepage(body: FormEmployeePage(employeeId: id));
+        },
       ),
       GoRoute(
         path: '/menager-hours',

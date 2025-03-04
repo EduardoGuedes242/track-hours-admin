@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:panel_admin/src/common/Cores.dart';
+import 'package:panel_admin/src/home/employee/api/model.dart';
+import 'package:panel_admin/src/home/employee/api/repository.dart';
 import 'package:panel_admin/src/login/screen/login_page.dart';
 import 'package:panel_admin/src/widgets/edit.dart';
 
@@ -12,17 +14,51 @@ class ListEmployeePage extends StatefulWidget {
 }
 
 class _ListEmployeePageState extends State<ListEmployeePage> {
+  List<EmployeeModel> employees = [];
+  List<DataRow> itensDataRow = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getEmployees();
+  }
+
+  Future<void> getEmployees() async {
+    try {
+      List<EmployeeModel> lista = await EmployeeRepository().getEmployees();
+      setState(() {
+        employees = lista;
+        itensDataRow =
+            lista.map((employee) {
+              return DataRow(
+                cells: [
+                  DataCell(LabelDataCellWidget(label: employee.name!)),
+                  DataCell(LabelDataCellWidget(label: employee.document!)),
+                  DataCell(LabelDataCellWidget(label: employee.dateOfBirth!)),
+                  DataCell(
+                    LabelDataCellWidget(
+                      label: employee.active! ? 'Admitido' : 'Demitido',
+                    ),
+                  ),
+                  DataCell(
+                    LabelDataCellButtonWidget(
+                      label: 'Ajustes',
+                      onClick: () {
+                        context.go('/employee-form/${employee.id}');
+                      },
+                    ),
+                  ),
+                ],
+              );
+            }).toList();
+      });
+    } catch (e) {
+      print('Erro ao carregar funcionários: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    var dataRow = DataRow(
-      cells: [
-        DataCell(LabelDataCellWidget(label: 'Bruno Eduardo Melgaço Guedes')),
-        DataCell(LabelDataCellWidget(label: '163.011.777-38')),
-        DataCell(LabelDataCellWidget(label: '14/02/2002')),
-        DataCell(LabelDataCellWidget(label: 'Admitido')),
-        DataCell(LabelDataCellButtonWidget(label: 'Ajustes', onClick: () {})),
-      ],
-    );
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -85,7 +121,6 @@ class _ListEmployeePageState extends State<ListEmployeePage> {
                       width: double.infinity,
                       child: DataTable(
                         columnSpacing: 20,
-
                         columns: [
                           DataColumn(
                             label: Expanded(
@@ -153,14 +188,7 @@ class _ListEmployeePageState extends State<ListEmployeePage> {
                             ),
                           ),
                         ],
-                        rows: [
-                          dataRow,
-                          dataRow,
-                          dataRow,
-                          dataRow,
-                          dataRow,
-                          dataRow,
-                        ],
+                        rows: itensDataRow,
                       ),
                     ),
                   ),

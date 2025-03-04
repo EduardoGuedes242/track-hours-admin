@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:panel_admin/src/common/Cores.dart';
+import 'package:panel_admin/src/home/menager_hours/api/model.dart';
+import 'package:panel_admin/src/home/menager_hours/api/repository.dart';
 import 'package:panel_admin/src/login/screen/login_page.dart';
 import 'package:panel_admin/src/widgets/edit.dart';
 
@@ -11,19 +13,40 @@ class MenagerHoursPage extends StatefulWidget {
 }
 
 class _MenagerHoursPageState extends State<MenagerHoursPage> {
-  var dataRow = DataRow(
-    cells: [
-      DataCell(LabelDataCellWidget(label: '01/02/2025')),
-      DataCell(LabelDataCellWidget(label: '08:00')),
-      DataCell(LabelDataCellWidget(label: '12:00')),
-      DataCell(LabelDataCellWidget(label: '13:00')),
-      DataCell(LabelDataCellWidget(label: '18:00')),
-      DataCell(LabelDataCellWidget(label: '--:--')),
-      DataCell(LabelDataCellWidget(label: '--:--')),
-      DataCell(LabelDataCellWidget(label: '06:00h')),
-      DataCell(LabelDataCellWidget(label: '02:00h')),
-    ],
-  );
+  MenagerHoursModel employees = MenagerHoursModel();
+  List<DataRow> itensDataRow = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getEmployees();
+  }
+
+  Future<void> getEmployees() async {
+    try {
+      MenagerHoursModel allData = await MenagerHoursRepository()
+          .menagerHoursForEmployeeRepository(idEmployee: '3');
+      List<TmeEntryRecords> lista = allData.tmeEntryRecords!;
+      setState(() {
+        itensDataRow =
+            lista.map((jornada) {
+              return DataRow(
+                cells: [
+                  DataCell(LabelDataCellWidget(label: '01/02/2025')),
+                  DataCell(LabelDataCellWidget(label: jornada.timeEntry1!)),
+                  DataCell(LabelDataCellWidget(label: jornada.timeEntry2!)),
+                  DataCell(LabelDataCellWidget(label: '13:00')),
+                  DataCell(LabelDataCellWidget(label: '18:00')),
+                  DataCell(LabelDataCellWidget(label: jornada.totalHours!)),
+                  DataCell(LabelDataCellWidget(label: '02:00h')),
+                ],
+              );
+            }).toList();
+      });
+    } catch (e) {
+      print('Erro ao carregar funcionários: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -168,32 +191,7 @@ class _MenagerHoursPageState extends State<MenagerHoursPage> {
                               ),
                             ),
                           ),
-                          DataColumn(
-                            label: Expanded(
-                              child: Text(
-                                'Marc 5',
-                                style: TextStyle(
-                                  color: PaletaCores.textoNegrito,
-                                  fontFamily: 'Axiforma',
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 13,
-                                ),
-                              ),
-                            ),
-                          ),
-                          DataColumn(
-                            label: Expanded(
-                              child: Text(
-                                'Marc 6',
-                                style: TextStyle(
-                                  color: PaletaCores.textoNegrito,
-                                  fontFamily: 'Axiforma',
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 13,
-                                ),
-                              ),
-                            ),
-                          ),
+
                           DataColumn(
                             label: Expanded(
                               child: Text(
@@ -221,26 +219,7 @@ class _MenagerHoursPageState extends State<MenagerHoursPage> {
                             ),
                           ),
                         ],
-                        rows: [
-                          dataRow,
-                          dataRow,
-                          dataRow,
-                          dataRow,
-                          dataRow,
-                          dataRow,
-                          dataRow,
-                          dataRow,
-                          dataRow,
-                          dataRow,
-                          dataRow,
-                          dataRow,
-                          dataRow,
-                          dataRow,
-                          dataRow,
-                          dataRow,
-                          dataRow,
-                          dataRow,
-                        ],
+                        rows: itensDataRow,
                       ),
                     ),
                   ),
