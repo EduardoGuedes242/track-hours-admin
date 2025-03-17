@@ -77,10 +77,10 @@ class _LoginPageState extends State<LoginPage> {
                                     isLoading = true;
                                   });
 
-                                  await fetchToken(
-                                    aEmail: 'edu',
-                                    aPassword: 'password',
-                                  );
+                                  //await fetchToken(
+                                  //  aEmail: 'edu',
+                                  //  aPassword: 'password',
+                                  //);
 
                                   setState(() {
                                     isLoading = false;

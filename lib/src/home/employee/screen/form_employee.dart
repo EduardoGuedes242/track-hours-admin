@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:panel_admin/src/common/Cores.dart';
 import 'package:panel_admin/src/home/employee/api/repository.dart';
 import 'package:panel_admin/src/login/screen/login_page.dart';
+import 'package:panel_admin/src/widgets/combobox.dart';
 import 'package:panel_admin/src/widgets/edit.dart';
 
 class FormEmployeePage extends StatefulWidget {
@@ -78,24 +79,28 @@ class _FormEmployeePageState extends State<FormEmployeePage> {
                       children: [
                         Expanded(
                           child: EditInput(
-                            title: 'Nome Completo',
+                            title: 'Nome Completo *',
                             hintText: 'Nome do funcionario',
                             controller: TextEditingController(),
                           ),
                         ),
                         Expanded(
-                          child: EditInput(
-                            title: 'CPF Funcionario',
-                            hintText: 'Informe o CPF do funcionario',
-                            controller: TextEditingController(),
+                          child: ComboboxWidget(
+                            title: 'Status Atual *',
+                            hintText: 'Informe o status do funcionario',
+                            options: [
+                              'Contratado',
+                              'Experiencia',
+                              'Demitido',
+                              'Aviso',
+                            ],
                           ),
                         ),
                         Expanded(
                           child: EditInput(
-                            title: 'Data Nascimento',
-                            hintText: 'Data de nascimento do funcionario',
+                            title: 'Cargo/Função *',
+                            hintText: 'funcionario',
                             controller: TextEditingController(),
-                            obscureText: true,
                           ),
                         ),
                       ],
@@ -106,28 +111,42 @@ class _FormEmployeePageState extends State<FormEmployeePage> {
                       children: [
                         Expanded(
                           child: EditInput(
-                            title: 'Nome Completo',
-                            hintText: 'Nome do funcionario',
+                            title: 'CPF',
+                            hintText: 'Informe o CPF do Funcionario',
                             controller: TextEditingController(),
                           ),
                         ),
                         Expanded(
                           child: EditInput(
-                            title: 'CPF Funcionario',
-                            hintText: 'Informe o CPF do funcionario',
-                            controller: TextEditingController(),
-                          ),
-                        ),
-                        Expanded(
-                          child: EditInput(
-                            title: 'Data Nascimento',
-                            hintText: 'Data de nascimento do funcionario',
+                            title: 'Senha',
+                            hintText: 'Senha do funcionario',
                             controller: TextEditingController(),
                             obscureText: true,
                           ),
                         ),
+                        Expanded(
+                          child: EditInput(
+                            title: 'Contado/Whastapp',
+                            hintText: 'Informe um meio de contato',
+                            controller: TextEditingController(),
+                          ),
+                        ),
                       ],
                     ),
+                    Row(
+                      spacing: 20,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        EditInputDate(
+                          width: 250,
+                          title: 'Data Nascimento',
+                          hintText: '14/02/2002',
+                          controller: TextEditingController(),
+                          suffixIcon: Icon(Icons.calendar_month_outlined),
+                        ),
+                      ],
+                    ),
+
                     ButtonProprio(
                       title: 'Salvar dados',
                       onClick: () {
