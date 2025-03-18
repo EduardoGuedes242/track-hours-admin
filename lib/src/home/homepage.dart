@@ -33,7 +33,7 @@ class Homepage extends StatelessWidget {
                 ),
                 ItemMenuSidebar(
                   isSelected: currentRoute == '/employee',
-                  title: 'Employees',
+                  title: 'Funcionarios',
                   goTo: '/employee',
                   pathIcon: 'assets/icon/employee.svg',
                 ),

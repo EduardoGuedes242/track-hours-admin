@@ -17,7 +17,9 @@ class EmployeeRepository {
     required String document,
     required String dateOfBirth,
     required String password,
-    required bool active,
+    required String status,
+    required String position,
+    required String contact,
   }) async {
     try {
       EmployeeModel employee = EmployeeModel(
@@ -26,7 +28,9 @@ class EmployeeRepository {
         document: document,
         dateOfBirth: dateOfBirth,
         password: password,
-        active: true,
+        status: status,
+        position: position,
+        contact: contact,
       );
 
       await ApiEmployeeService().createNewEmployee(employee);

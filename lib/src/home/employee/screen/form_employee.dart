@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:go_router/go_router.dart';
 import 'package:panel_admin/src/common/Cores.dart';
 import 'package:panel_admin/src/home/employee/api/repository.dart';
@@ -15,10 +16,16 @@ class FormEmployeePage extends StatefulWidget {
 }
 
 class _FormEmployeePageState extends State<FormEmployeePage> {
+  TextEditingController nameController = TextEditingController();
+  String statusEmployee = '';
+  String cargoEmployee = '';
+  var documentController = MaskedTextController(mask: '000.000.000-00');
+  TextEditingController passwordController = TextEditingController();
+  var contactController = MaskedTextController(mask: '(00) 00000-0000');
+  var dateOfBirthController = MaskedTextController(mask: '00/00/0000');
+
   @override
   Widget build(BuildContext context) {
-    print(widget.employeeId);
-
     return Column(
       children: [
         Container(
@@ -80,27 +87,43 @@ class _FormEmployeePageState extends State<FormEmployeePage> {
                         Expanded(
                           child: EditInput(
                             title: 'Nome Completo *',
-                            hintText: 'Nome do funcionario',
-                            controller: TextEditingController(),
+                            hintText: 'Ex: Joao Candito',
+                            controller: nameController,
                           ),
                         ),
                         Expanded(
                           child: ComboboxWidget(
                             title: 'Status Atual *',
-                            hintText: 'Informe o status do funcionario',
+                            hintText: 'Selecione...',
                             options: [
                               'Contratado',
                               'Experiencia',
                               'Demitido',
                               'Aviso',
                             ],
+                            onChanged: (String? value) {
+                              setState(() {
+                                statusEmployee = value!;
+                              });
+                            },
                           ),
                         ),
                         Expanded(
-                          child: EditInput(
-                            title: 'Cargo/Função *',
-                            hintText: 'funcionario',
-                            controller: TextEditingController(),
+                          child: ComboboxWidget(
+                            title: 'Cargo/Função*',
+                            hintText: 'Selecione...',
+                            options: [
+                              'Auxiliar ADM',
+                              'Secretaria',
+                              'CEO',
+                              'Programador',
+                              'Zelador',
+                            ],
+                            onChanged: (String? value) {
+                              setState(() {
+                                cargoEmployee = value!;
+                              });
+                            },
                           ),
                         ),
                       ],
@@ -112,23 +135,23 @@ class _FormEmployeePageState extends State<FormEmployeePage> {
                         Expanded(
                           child: EditInput(
                             title: 'CPF',
-                            hintText: 'Informe o CPF do Funcionario',
-                            controller: TextEditingController(),
+                            hintText: 'Ex: 123.456.789-10',
+                            controller: documentController,
                           ),
                         ),
                         Expanded(
                           child: EditInput(
                             title: 'Senha',
-                            hintText: 'Senha do funcionario',
-                            controller: TextEditingController(),
+                            hintText: 'Ex: 4312',
+                            controller: passwordController,
                             obscureText: true,
                           ),
                         ),
                         Expanded(
                           child: EditInput(
                             title: 'Contado/Whastapp',
-                            hintText: 'Informe um meio de contato',
-                            controller: TextEditingController(),
+                            hintText: 'Ex: (12) 91234-5678',
+                            controller: contactController,
                           ),
                         ),
                       ],
@@ -138,16 +161,16 @@ class _FormEmployeePageState extends State<FormEmployeePage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         EditInputDate(
-                          width: 250,
+                          width: 300,
                           title: 'Data Nascimento',
-                          hintText: '14/02/2002',
-                          controller: TextEditingController(),
+                          hintText: 'Ex: 14/02/2002',
+                          controller: dateOfBirthController,
                           suffixIcon: Icon(Icons.calendar_month_outlined),
                         ),
                       ],
                     ),
-
                     ButtonProprio(
+                      width: 250,
                       title: 'Salvar dados',
                       onClick: () {
                         EmployeeRepository().createNewEmployee(
@@ -155,11 +178,13 @@ class _FormEmployeePageState extends State<FormEmployeePage> {
                               widget.employeeId != null
                                   ? int.parse(widget.employeeId!)
                                   : null,
-                          name: 'Luana Guedes',
-                          document: '163.011.777-38',
-                          dateOfBirth: '1992-03-10',
-                          password: 'password',
-                          active: true,
+                          name: nameController.text,
+                          document: documentController.text,
+                          dateOfBirth: dateOfBirthController.text,
+                          password: passwordController.text,
+                          status: statusEmployee,
+                          position: cargoEmployee,
+                          contact: contactController.text,
                         );
                       },
                     ),

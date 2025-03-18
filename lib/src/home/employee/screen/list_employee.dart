@@ -35,11 +35,7 @@ class _ListEmployeePageState extends State<ListEmployeePage> {
                   DataCell(LabelDataCellWidget(label: employee.name!)),
                   DataCell(LabelDataCellWidget(label: employee.document!)),
                   DataCell(LabelDataCellWidget(label: employee.dateOfBirth!)),
-                  DataCell(
-                    LabelDataCellWidget(
-                      label: employee.active! ? 'Admitido' : 'Demitido',
-                    ),
-                  ),
+                  DataCell(LabelDataCellWidget(label: employee.status!)),
                   DataCell(
                     LabelDataCellButtonWidget(
                       label: 'Ajustes',

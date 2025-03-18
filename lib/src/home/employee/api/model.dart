@@ -5,7 +5,9 @@ class EmployeeModel {
   String? document;
   String? dateOfBirth;
   String? password;
-  bool? active;
+  String? status;
+  String? position;
+  String? contact;
 
   EmployeeModel({
     this.id,
@@ -14,7 +16,9 @@ class EmployeeModel {
     this.document,
     this.dateOfBirth,
     this.password,
-    this.active,
+    this.status,
+    this.position,
+    this.contact,
   });
 
   EmployeeModel.fromJson(Map<String, dynamic> json) {
@@ -24,7 +28,9 @@ class EmployeeModel {
     document = json['document'];
     dateOfBirth = json['dateOfBirth'];
     password = json['password'];
-    active = json['active'];
+    status = json['status'];
+    position = json['position'];
+    contact = json['contact'];
   }
 
   Map<String, dynamic> toJson() {
@@ -35,7 +41,9 @@ class EmployeeModel {
     data['document'] = this.document;
     data['dateOfBirth'] = this.dateOfBirth;
     data['password'] = this.password;
-    data['active'] = this.active;
+    data['status'] = this.status;
+    data['position'] = this.position;
+    data['contact'] = this.contact;
     return data;
   }
 }
