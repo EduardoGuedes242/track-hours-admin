@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:panel_admin/src/common/Cores.dart';
+import 'package:panel_admin/src/home/employee/api/data_mockado.dart';
 import 'package:panel_admin/src/home/menager_hours/api/model.dart';
 import 'package:panel_admin/src/home/menager_hours/api/repository.dart';
 import 'package:panel_admin/src/login/screen/login_page.dart';
@@ -24,21 +25,31 @@ class _MenagerHoursPageState extends State<MenagerHoursPage> {
 
   Future<void> getEmployees() async {
     try {
-      MenagerHoursModel allData = await MenagerHoursRepository()
-          .menagerHoursForEmployeeRepository(idEmployee: '3');
+      MenagerHoursModel allData = mockModel; //await MenagerHoursRepository()
+      //.menagerHoursForEmployeeRepository(idEmployee: '3');
       List<TmeEntryRecords> lista = allData.tmeEntryRecords!;
       setState(() {
         itensDataRow =
             lista.map((jornada) {
               return DataRow(
                 cells: [
-                  DataCell(LabelDataCellWidget(label: '01/02/2025')),
-                  DataCell(LabelDataCellWidget(label: jornada.timeEntry1!)),
-                  DataCell(LabelDataCellWidget(label: jornada.timeEntry2!)),
-                  DataCell(LabelDataCellWidget(label: '13:00')),
-                  DataCell(LabelDataCellWidget(label: '18:00')),
+                  DataCell(
+                    LabelDataCellWidget(label: jornada.formattedTmeDate),
+                  ),
+                  DataCell(
+                    LabelDataCellWidget(label: jornada.timeEntry1 ?? "--:--"),
+                  ),
+                  DataCell(
+                    LabelDataCellWidget(label: jornada.timeEntry2 ?? "--:--"),
+                  ),
+                  DataCell(
+                    LabelDataCellWidget(label: jornada.timeEntry3 ?? "--:--"),
+                  ),
+                  DataCell(
+                    LabelDataCellWidget(label: jornada.timeEntry4 ?? "--:--"),
+                  ),
                   DataCell(LabelDataCellWidget(label: jornada.totalHours!)),
-                  DataCell(LabelDataCellWidget(label: '02:00h')),
+                  DataCell(LabelDataCellWidget(label: '00:00h')),
                 ],
               );
             }).toList();

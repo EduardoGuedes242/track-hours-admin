@@ -15,7 +15,7 @@ class EmployeeRepository {
     int? id,
     required String name,
     required String document,
-    required String dateOfBirth,
+    required DateTime dateOfBirth,
     required String password,
     required String status,
     required String position,

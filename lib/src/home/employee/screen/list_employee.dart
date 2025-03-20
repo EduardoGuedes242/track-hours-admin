@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:panel_admin/src/common/Cores.dart';
+import 'package:panel_admin/src/home/employee/api/data_mockado.dart';
 import 'package:panel_admin/src/home/employee/api/model.dart';
 import 'package:panel_admin/src/home/employee/api/repository.dart';
 import 'package:panel_admin/src/login/screen/login_page.dart';
@@ -25,17 +26,20 @@ class _ListEmployeePageState extends State<ListEmployeePage> {
 
   Future<void> getEmployees() async {
     try {
-      List<EmployeeModel> lista = await EmployeeRepository().getEmployees();
+      List<EmployeeModel> lista =
+          dataMockListEmployee; // await EmployeeRepository().getEmployees();
       setState(() {
         employees = lista;
         itensDataRow =
             lista.map((employee) {
               return DataRow(
                 cells: [
-                  DataCell(LabelDataCellWidget(label: employee.name!)),
-                  DataCell(LabelDataCellWidget(label: employee.document!)),
-                  DataCell(LabelDataCellWidget(label: employee.dateOfBirth!)),
-                  DataCell(LabelDataCellWidget(label: employee.status!)),
+                  DataCell(LabelDataCellWidget(label: employee.name)),
+                  DataCell(LabelDataCellWidget(label: employee.document)),
+                  DataCell(
+                    LabelDataCellWidget(label: employee.formattedDateOfBirth),
+                  ),
+                  DataCell(LabelDataCellWidget(label: employee.status)),
                   DataCell(
                     LabelDataCellButtonWidget(
                       label: 'Ajustes',

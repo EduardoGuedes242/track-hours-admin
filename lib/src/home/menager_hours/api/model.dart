@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class MenagerHoursModel {
   int? eplId;
   String? eplName;
@@ -29,7 +31,7 @@ class MenagerHoursModel {
 }
 
 class TmeEntryRecords {
-  String? tmeDate;
+  DateTime? tmeDate;
   String? timeEntry1;
   String? timeEntry2;
   String? timeEntry3;
@@ -46,7 +48,7 @@ class TmeEntryRecords {
   });
 
   TmeEntryRecords.fromJson(Map<String, dynamic> json) {
-    tmeDate = json['tmeDate'];
+    tmeDate = DateTime.parse(json['tmeDate']);
     timeEntry1 = json['timeEntry1'];
     timeEntry2 = json['timeEntry2'];
     timeEntry3 = json['timeEntry3'];
@@ -63,5 +65,10 @@ class TmeEntryRecords {
     data['timeEntry4'] = this.timeEntry4;
     data['totalHours'] = this.totalHours;
     return data;
+  }
+
+  String get formattedTmeDate {
+    final DateFormat formatter = DateFormat('dd/MM/yyyy');
+    return formatter.format(tmeDate!);
   }
 }

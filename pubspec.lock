@@ -17,6 +17,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.12.0"
+  awesome_snackbar_content:
+    dependency: "direct main"
+    description:
+      name: awesome_snackbar_content
+      sha256: c1c4593eb6c19785ba62f78e36a5adbf52fe6c42039a5eb9e7e2e3b4bb639bb2
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.5"
   boolean_selector:
     dependency: transitive
     description:
@@ -78,6 +86,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.0"
+  flutter_localizations:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_masked_text2:
     dependency: "direct main"
     description:
@@ -128,6 +141,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.2"
+  intl:
+    dependency: "direct main"
+    description:
+      name: intl
+      sha256: "3df61194eb431efc39c4ceba583b95633a403f46c9fd341e550ce0bfa50e9aa5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.20.2"
   leak_tracker:
     dependency: transitive
     description:
@@ -160,6 +181,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.1.1"
+  loading_indicator:
+    dependency: "direct main"
+    description:
+      name: loading_indicator
+      sha256: a101ffb2aa3e646137d7810bfa90b50525dd3f72c01235b6df7491cf6af6f284
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.1"
   logging:
     dependency: transitive
     description:
@@ -216,6 +245,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.0"
+  quickalert:
+    dependency: "direct main"
+    description:
+      name: quickalert
+      sha256: b5d62b1e20b08cc0ff5f40b6da519bdc7a5de6082f13d90572cf4e72eea56c5e
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   sky_engine:
     dependency: transitive
     description: flutter
